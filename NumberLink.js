@@ -1,9 +1,21 @@
-var fs = require('fs'),
-	readline = require('readline'),
-	md5 = require('md5');
+/**************************************
 
+	Number Link Solver
+	
+	Paul Matthews
+	
+	22.06.2020
+
+**************************************/
+
+var fs = require('fs'),		// Used for file operations
+	md5 = require('md5');	// Used for performing md5 hashes on the boards
+
+// List of partially solved boards
 let boards = [];
-let solved = {
+
+// Used for tracking the number of solved boards
+let passed = {
 	5: 0,
 	6: 0,
 	7: 0,
@@ -11,6 +23,7 @@ let solved = {
 	9: 0
 };
 
+// Used for tracking which boards of a given size could not be solved
 let failed = {
 	5: [],
 	6: [],
@@ -19,14 +32,16 @@ let failed = {
 	9: []
 };
 
+// Create a new board instance based on a board design
 function newBoard(b) {
-	var bx = b.size.x;
-	var by = b.size.y;
+	var bx = b.size.x;	// size of the board in x-axis
+	var by = b.size.y;	// size of the board in y-axis
 	
-	// Iniatlize the board
+	// Iniatlize the board (to empty)
 	var board = new Array(by).fill('.').map(() => new Array(bx).fill('.'));
 	var points = b.points;
 	
+	// Fill with path endpoints
 	Object.keys(points).forEach(function(key) {
 		var k = points[key];
 		board[k[0][1]][k[0][0]] = key;
@@ -37,10 +52,13 @@ function newBoard(b) {
 	return b;
 }
 
+// Get the hash of a board (so that we can ensure we're only storing unique boards)
 function getBoardHash(board) {
 	return md5(JSON.stringify(board));
 }
 
+// For a given heading {0:Up, 1:Left, 2:Down, 3:Right}
+// rotate either clockwise (-1), or anticlockwise (1)
 function rotate(heading, turnDirection) {
 	heading += turnDirection;
 	if (heading == 4) heading = 0;
@@ -49,18 +67,21 @@ function rotate(heading, turnDirection) {
 	return heading
 }
 
+// For a given board, return how many moves can be made from a given cell (0 to 4)
 function availableMoves(board, x, y) {
 	var b = board.board;
 	var c = 0;
 	
-	if ((x > 0) && (b[y][x - 1] === '.')) c++;
-	if ((y > 0) && (b[y - 1][x] === '.')) c++;
-	if ((x < board.size.x - 1) && (b[y][x + 1] === '.')) c++
-	if ((y < board.size.y - 1) && (b[y + 1][x] === '.')) c++;
+	if ((x > 0) && (b[y][x - 1] === '.')) c++;					// Check Left
+	if ((y > 0) && (b[y - 1][x] === '.')) c++;					// Check Up
+	if ((x < board.size.x - 1) && (b[y][x + 1] === '.')) c++	// Check Right
+	if ((y < board.size.y - 1) && (b[y + 1][x] === '.')) c++;	// Check Down
 	
 	return c;	
 }
 
+// Perform a left (side = 1) or right (side = -1) wall follow on the 'board', starting at
+// 'start' and ending at 'end'
 function wallFollow(board, side, start, end, color) {
 	var validPaths = [];
 	var validPaths = [];
@@ -122,6 +143,7 @@ function wallFollow(board, side, start, end, color) {
 	return validPaths;
 }
 
+// For a given pair of endpoints on a board, check A-B and B-A perform a left and right hand wall follow
 function findPath(board, endPoints, color) {
 	var validPaths = [];
 		
@@ -136,12 +158,13 @@ function findPath(board, endPoints, color) {
 	return validPaths;
 }
 
+// Check is a given board is solved
 function isSolved(board) {	
 	var solved = true;
 	
 	for (var c = 0; c < board.length; c++) {
 		for (var d = 0; d < board[c].length; d++) {
-			if (board[c][d] === '.') {
+			if (board[c][d] === '.') {	// Check is any cells are not on an assigned path
 				solved = false;
 				break;
 			}
@@ -152,6 +175,7 @@ function isSolved(board) {
 	return solved;
 }
 
+// For a given board (b), with endpoints listed within, solve it
 function solveBoard(b) {
 	var stack = {};							// Our in-work boards reside here
 	var maxStackSize = 0;					// Keep track of how many partial boards we are juggling	
@@ -201,17 +225,21 @@ function solveBoard(b) {
 	if (isSolved(_board.board)) {
 		console.log("Solved:\n", _board.board);
 		console.log("Maximimum board stack size during computation: ", maxStackSize);
-		solved[_board.size.x]++;
+		if (!(_board.size.x in passed)) passed[_board.size.x] = 0;
+		passed[_board.size.x]++;
 	} else {
 		console.log("I got Stuck\n");
+		if (!(_board.size.x in failed)) failed[_board.size.x] = [];
 		failed[_board.size.x].push(_board.level);
 	}
 }
 
+// Convert a cell number (i.e. 0-24 on a 5x5 board) to x,y coords
 function cellToCoord(cell, sx, sy) {
 	return [cell % sx, ((cell - cell % sx) / sx) | 0];
 }
 
+// Load a levels file and all the boards it contains
 function loadLevels(file) {
 	var lines = fs.readFileSync(file, 'utf8').split('\n');
 	
@@ -242,6 +270,7 @@ function loadLevels(file) {
 
 }
 
+// Read in a levels file, solve all the boards within it
 function main(done) {
 	var path = process.argv[process.argv.length - 1];
 	console.log("Opening: ", path);
@@ -262,8 +291,8 @@ function main(done) {
 		console.log("Statistics:");
 		var total = 0;
 		for(c = 5; c < 10; c++) {
-			console.log(c, 'x', c, 'board has ', solved[c], '/ 30 solutions found');
-			total += solved[c];
+			console.log(c, 'x', c, 'board has ', passed[c], '/ 30 solutions found');
+			total += passed[c];
 		}
 		console.log("Total Solutions:", total, "/ ", boards.length);
 		
@@ -271,7 +300,6 @@ function main(done) {
 		var total = 0;
 		for(c = 5; c < 10; c++) {
 			console.log(c, 'x', c, 'failures: ', failed[c]);
-			total += solved[c];
 		}
 	} else {
 		console.error("File does not exist");
