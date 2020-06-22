@@ -243,35 +243,39 @@ function loadLevels(file) {
 }
 
 function main(done) {
-	//loadLevels("Levels\\levelpack_0.txt");
-	loadLevels("Levels\\levelpack_1.txt");
+	var path = process.argv[process.argv.length - 1];
+	console.log("Opening: ", path);
+
+	if (fs.existsSync(path)) {
+		loadLevels(path);
+			
+		var start = new Date();
+		for (var c = 0; c < boards.length; c++) {
+			console.log("Board ", c + 1, ":");
+			var board = newBoard(boards[c]);
+			solveBoard(board);
+		};
 		
+		var end = new Date() - start;
+		console.info('Execution time: %dms', end);
 		
-	var start = new Date();
-	//solveBoard(newBoard(boards[2]));
-	for (var c = 0; c < boards.length; c++) {
-		console.log("Board ", c + 1, ":");
-		var board = newBoard(boards[c]);
-		solveBoard(board);
-	};
-	
-	var end = new Date() - start;
-	console.info('Execution time: %dms', end);
-	
-	console.log("Statistics:");
-	var total = 0;
-	for(c = 5; c < 10; c++) {
-		console.log(c, 'x', c, 'board has ', solved[c], '/ 30 solutions found');
-		total += solved[c];
+		console.log("Statistics:");
+		var total = 0;
+		for(c = 5; c < 10; c++) {
+			console.log(c, 'x', c, 'board has ', solved[c], '/ 30 solutions found');
+			total += solved[c];
+		}
+		console.log("Total Solutions:", total, "/ ", boards.length);
+		
+		console.log("Failed:");
+		var total = 0;
+		for(c = 5; c < 10; c++) {
+			console.log(c, 'x', c, 'failures: ', failed[c]);
+			total += solved[c];
+		}
+	} else {
+		console.error("File does not exist");
 	}
-	console.log("Total Solutions:", total, "/ ", boards.length);
-	
-	console.log("Failed:");
-	var total = 0;
-	for(c = 5; c < 10; c++) {
-		console.log(c, 'x', c, 'failures: ', failed[c]);
-		total += solved[c];
-	}	
 }
 
 main();
