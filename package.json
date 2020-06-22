@@ -1,0 +1,27 @@
+{
+  "name": "numberlink",
+  "version": "1.0.0",
+  "description": "Solver for NumberLink Problem",
+  "main": "NumberLink.js",
+  "dependencies": {
+    "md5": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AwooOOoo/NumberLink.git"
+  },
+  "keywords": [
+    "number",
+    "link"
+  ],
+  "author": "Paul Matthews",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AwooOOoo/NumberLink/issues"
+  },
+  "homepage": "https://github.com/AwooOOoo/NumberLink#readme"
+}
