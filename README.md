@@ -1,15 +1,32 @@
 # NumberLink
-Javascript Implementation of NumberLink problem using a maze waller follower algorithm
+Javascript Implementation of NumberLink problem using a maze waller follower algorithm.
 
+# Motivation
+
+A friend got me thinking about how to solve Number Link boards (see the game 'Free Flow') and after playing a bunch of them, many can be solved with the same strategy, which amounts to a maze wall following algorithm. This project is a JS implementation of such an algorithm which solves over 90% of the boards with only wall following.
+
+If you want to read more about the Number link puzzle (try https://en.wikipedia.org/wiki/Numberlink) which lists it as a NP-Complete problem.
+
+### Will I adapt the algorithm to solve 100% of all puzzles?
+We will see. I have a short attention span when other shiny puzzles are nearby.
+
+### Did you know there was a (better?) implementation already on github that also includes a puzzle generator(https://github.com/thomasahle/numberlink)?
+No, but that was the point. I wanted to see if the idea would work. 
 
 # Installation:
+
+If you don't already have Node installed you can get it here:
+https://nodejs.org/en/download/
+
 The script depends on the md5 library which it uses to create hashes of boards so that duplicates are not created.
 
 >npm install
 
 # File Format
 
-This script coincidently uses the same format as Free Flow by 'Big Duck Games LLC' (https://www.microsoft.com/en-us/p/flow-free/9wzdncrdqvpj?activetab=pivot:overviewtab). The game level files are not included in this repo, but if you have the Windows 10 verson of the game installed you can find them in the *C:\Program Files\WindowsApps\BigDuckGamesLLC.Flow_1.7.0.3_x64__1eenntbmr0etw\Levels* directory. Note that the *WindowsApps* directory is by default hidden and protected so you would need to allow visibility and grant yourself access to enter the directory.
+This script coincidently uses the same format as the original "Free Flow" game by 'Big Duck Games LLC' (https://www.microsoft.com/en-us/p/flow-free/9wzdncrdqvpj?activetab=pivot:overviewtab). Its a cool game that I've gotten hours of puzzle solving fun with, so have a try and support them by buying an expansion if you can.
+
+The game level files are not included in this repo, but if you have the Windows 10 verson of the game installed you can find them in the *C:\Program Files\WindowsApps\BigDuckGamesLLC.Flow_1.7.0.3_x64__1eenntbmr0etw\Levels* directory. Note that the *WindowsApps* directory is by default hidden and protected so you would need to allow visibility and grant yourself access to enter the directory.
 
 The file is a text file with one game board being described per line. Each board description is as follows;
 
@@ -64,14 +81,14 @@ The configuration information for the beginning of the row is:
 
 Putting it altogether our board is;
 
-## 5,0,1,4; 3,8,7,12,17,18,19; 4,9,14,13; 2,1,6,11,16; 0,5,10,15,20,21,22,23,24
+### 5,0,1,4; 3,8,7,12,17,18,19; 4,9,14,13; 2,1,6,11,16; 0,5,10,15,20,21,22,23,24
 
 #Running:
 
 >node NumberLink.js
 
 ```
-C:\Users\mattpaul\Documents\code\NumberLink>node NumberLink.js Levels\levelpack_1.txt
+>node NumberLink.js Levels\levelpack_1.txt
 Opening:  Levels\levelpack_1.txt
 Board  1 :
 Unsolved:
