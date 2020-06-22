@@ -15,22 +15,10 @@ var fs = require('fs'),		// Used for file operations
 let boards = [];
 
 // Used for tracking the number of solved boards
-let passed = {
-	5: 0,
-	6: 0,
-	7: 0,
-	8: 0,
-	9: 0
-};
+let passed = {};
 
 // Used for tracking which boards of a given size could not be solved
-let failed = {
-	5: [],
-	6: [],
-	7: [],
-	8: [],
-	9: []
-};
+let failed = {};
 
 // Create a new board instance based on a board design
 function newBoard(b) {
