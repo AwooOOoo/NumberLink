@@ -28,14 +28,24 @@ Numbering of board cells (for a 5x5 board):
     <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
 </table>
 
-Lets assume you want to encode the following board:
+Lets assume you want to encode the following board (where the numbers represent two endpoints belowing to the same path, which are normally uniquely colored).
 
 <table>
-    <tr><td bgcolor="DarkViolet">0</td><td>1</td><td bgcolor="blue">2</td><td bgcolor=red">3</td><td bgcolor="green">4</td></tr>
-    <tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
-    <tr><td>10</td><td>11</td><td>12</td><td bgcolor="green">13</td><td>14</td></tr>
-    <tr><td>15</td><td bgcolor="blue">16</td><td>17</td><td>18</td><td bgcolor="red">19</td></tr>
-    <tr><td>20</td><td>21</td><td>22</td><td>23</td><td bgcolor="DarkViolet">24</td></tr>
+    <tr>3<td></td><td></td><td>2</td><td>0</td><td>1</td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td>1</td><td></td></tr>
+    <tr><td></td><td>2</td><td></td><td></td><td>0</td></tr>
+    <tr><td></td><td></td><td></td><td></td><td>3</td></tr>
+</table>
+
+If you complete the puzzle it looks like the following:
+
+<table>
+    <tr>3<td></td><td>2</td><td>2</td><td>0</td><td>1</td></tr>
+    <tr>3<td></td><td>2</td><td>0</td><td>0</td><td>1</td></tr>
+    <tr>3<td></td><td>2</td><td>0</td><td>1</td><td>1</td></tr>
+    <tr>3<td></td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr>3<td></td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
 </table>
 
 #Running:
