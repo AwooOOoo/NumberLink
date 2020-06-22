@@ -22,12 +22,12 @@ let failed = {};
 
 // Create a new board instance based on a board design
 function newBoard(b) {
-	var bx = b.size.x;	// size of the board in x-axis
-	var by = b.size.y;	// size of the board in y-axis
+	var bx = b.size.x,	// size of the board in x-axis
+		by = b.size.y;	// size of the board in y-axis
 	
 	// Iniatlize the board (to empty)
-	var board = new Array(by).fill('.').map(() => new Array(bx).fill('.'));
-	var points = b.points;
+	var board = new Array(by).fill('.').map(() => new Array(bx).fill('.')),
+		points = b.points;
 	
 	// Fill with path endpoints
 	Object.keys(points).forEach(function(key) {
@@ -71,19 +71,18 @@ function availableMoves(board, x, y) {
 // Perform a left (side = 1) or right (side = -1) wall follow on the 'board', starting at
 // 'start' and ending at 'end'
 function wallFollow(board, side, start, end, color) {
-	var validPaths = [];
-	var validPaths = [];
-	var sx = board.size.x;
-	var sy = board.size.y;
+	var validPaths = [],
+		sx = board.size.x,
+		sy = board.size.y;
 	
 	//Left-hand Follower
-	var dir = 0;	// 0 = Up, 1 = Left, 2 = Down, 3 = Right
-	var [x, y] = start;
-	var stuck = false;
-	var solved = false;
+	var dir = 0,	// 0 = Up, 1 = Left, 2 = Down, 3 = Right
+		[x, y] = start,
+		stuck = false,
+		solved = false;
 	
-	var boardCopy = JSON.parse(JSON.stringify(board))
-	var b = boardCopy.board;
+	var boardCopy = JSON.parse(JSON.stringify(board)),
+		b = boardCopy.board;
 
 	while ((stuck === false) && (solved === false)) {
 		//console.log(x, y, dir, side, color, availableMoves(boardCopy, x, y));
