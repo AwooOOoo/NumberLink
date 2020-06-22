@@ -7,10 +7,10 @@ A friend got me thinking about how to solve Number Link boards (see the game 'Fr
 
 If you want to read more about the Number link puzzle (try https://en.wikipedia.org/wiki/Numberlink) which lists it as a NP-Complete problem.
 
-## Will I adapt the algorithm to solve 100% of all puzzles?
+### Will I adapt the algorithm to solve 100% of all puzzles?
 We will see. I have a short attention span when other shiny puzzles are nearby.
 
-## Did you know there was a (better?) implementation already on github that also includes a puzzle generator(https://github.com/thomasahle/numberlink)?
+### Did you know there was a (better?) implementation already on github that also includes a puzzle generator(https://github.com/thomasahle/numberlink)?
 No, but that was the point. I wanted to see if the idea would work. 
 
 # Installation:
