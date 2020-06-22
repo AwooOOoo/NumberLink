@@ -2,12 +2,13 @@
 Javascript Implementation of NumberLink problem using a maze waller follower algorithm
 
 
-#Installation:
+# Installation:
 The script depends on the md5 library which it uses to create hashes of boards so that duplicates are not created.
 
 >npm install
 
-#File Format
+# File Format
+
 This script coincidently uses the same format as Free Flow by 'Big Duck Games LLC' (https://www.microsoft.com/en-us/p/flow-free/9wzdncrdqvpj?activetab=pivot:overviewtab). The game level files are not included in this repo, but if you have the Windows 10 verson of the game installed you can find them in the *C:\Program Files\WindowsApps\BigDuckGamesLLC.Flow_1.7.0.3_x64__1eenntbmr0etw\Levels* directory. Note that the *WindowsApps* directory is by default hidden and protected so you would need to allow visibility and grant yourself access to enter the directory.
 
 The file is a text file with one game board being described per line. Each board description is as follows;
@@ -47,6 +48,23 @@ If you complete the puzzle it looks like the following:
     <tr><td>3</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
     <tr><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
 </table>
+
+The cells of each color are listed in order from one end to the other. Each cell should be mentioned by one of the paths. So we get the following:
+
+0: 3,8,7,12,17,18,19
+1: 4,9,14,13
+2: 2,1,6,11,16
+3: 0,5,10,15,20,21,22,23,24
+
+The configuration information for the beginning of the row is:
+*size:* 5 // Means 5x5 board
+*type:* 0 // Default for square board
+*boardnumber:* 1 // Our first board
+*numpaths:* 4 // Because we have 4 different paths
+
+Putting it altogether our board is;
+
+## 5,0,1,4; 3,8,7,12,17,18,19; 4,9,14,13; 2,1,6,11,16; 0,5,10,15,20,21,22,23,24
 
 #Running:
 
