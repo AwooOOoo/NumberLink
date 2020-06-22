@@ -14,6 +14,10 @@ We will see. I have a short attention span when other shiny puzzles are nearby.
 No, but that was the point. I wanted to see if the idea would work. 
 
 # Installation:
+
+If you don't already have Node installed you can get it here:
+https://nodejs.org/en/download/
+
 The script depends on the md5 library which it uses to create hashes of boards so that duplicates are not created.
 
 >npm install
