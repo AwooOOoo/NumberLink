@@ -31,7 +31,7 @@ Numbering of board cells (for a 5x5 board):
 Lets assume you want to encode the following board (where the numbers represent two endpoints belowing to the same path, which are normally uniquely colored).
 
 <table>
-    <tr>3<td></td><td></td><td>2</td><td>0</td><td>1</td></tr>
+    <tr><td>3</td><td></td><td>2</td><td>0</td><td>1</td></tr>
     <tr><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td></td><td></td><td></td><td>1</td><td></td></tr>
     <tr><td></td><td>2</td><td></td><td></td><td>0</td></tr>
@@ -41,11 +41,11 @@ Lets assume you want to encode the following board (where the numbers represent 
 If you complete the puzzle it looks like the following:
 
 <table>
-    <tr>3<td></td><td>2</td><td>2</td><td>0</td><td>1</td></tr>
-    <tr>3<td></td><td>2</td><td>0</td><td>0</td><td>1</td></tr>
-    <tr>3<td></td><td>2</td><td>0</td><td>1</td><td>1</td></tr>
-    <tr>3<td></td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
-    <tr>3<td></td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+    <tr><td>3</td><td>2</td><td>2</td><td>0</td><td>1</td></tr>
+    <tr><td>3</td><td>2</td><td>0</td><td>0</td><td>1</td></tr>
+    <tr><td>3</td><td>2</td><td>0</td><td>1</td><td>1</td></tr>
+    <tr><td>3</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
 </table>
 
 #Running:
