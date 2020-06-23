@@ -245,7 +245,7 @@ Failed:
 9 'x' 9 'failures: ' [ 2, 3, 8, 15, 16, 17, 21, 22 ]
 ```
 
-#Method
+# Method
 
 So how does the wall following algorithm work?
 Take the following board and lets look at the '0' path first:
