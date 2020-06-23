@@ -1,5 +1,5 @@
 # NumberLink
-Javascript Implementation of NumberLink problem using a maze waller follower algorithm.
+Javascript Implementation of NumberLink problem using a maze wall follower algorithm.
 
 # Motivation
 
@@ -9,6 +9,8 @@ If you want to read more about the Number link puzzle (try https://en.wikipedia.
 
 ### Will I adapt the algorithm to solve 100% of all puzzles?
 We will see. I have a short attention span when other shiny puzzles are nearby.
+
+I have an idea on how to complete the rest using the same algorithm. In the current version, you complete one entire start to end path before putting the board back on the list for then another path to be completed. This assumes that entire paths can be found with the wall following algorithm alone. In more complex problems however I find myself doing a partial path which then helps define another path more easily (i.e. with wall following). The question becomes, how much of a partial path is sufficient
 
 ### Did you know there was a (better?) implementation already on github that also includes a puzzle generator(https://github.com/thomasahle/numberlink)?
 No, but that was the point. I wanted to see if the idea would work. 
@@ -242,3 +244,70 @@ Failed:
 8 'x' 8 'failures: ' [ 5, 7, 22, 29 ]
 9 'x' 9 'failures: ' [ 2, 3, 8, 15, 16, 17, 21, 22 ]
 ```
+
+#Method
+
+So how does the wall following algorithm work?
+Take the following board and lets look at the '0' path first:
+```
+ [ [ '0', '.', '1', '.', '3' ],
+  [ '.', '.', '2', '.', '4' ],
+  [ '.', '.', '.', '.', '.' ],
+  [ '.', '1', '.', '3', '.' ],
+  [ '.', '0', '2', '4', '.' ] ]
+```
+
+We need to do a left-hand wall follow and a right-hand for each of the '0' points. In order to do this I need to have a sense of direction, so I just assume we are facing 'up' to start with. So imagine we are on cell 0 which happens to contain a '0' facing up. For a left hand wall follower we need a wall touching our left hand (left hand side of the board) which it is, but we can't move forwards since the top of the board is blocking us, so we turn clockwise 90 degrees so we are facing 'right'. Now we can move to cell 2. Now we are blocked by the '1' in cell 2 so we rotate again and find ourselves in cell 6. Follow this until we are stuck an it looks like this:
+
+
+1) 0a to 0b left wall follow
+
+```
+ [ [ '0', '0', '1', '0', '3' ],
+  [ '.', '0', '2', '0', '4' ],
+  [ '.', '0', '0', '0', '.' ],
+  [ '.', '1', '.', '3', '.' ],
+  [ '.', '0', '2', '4', '.' ] ]
+```
+
+2) 0a to 0b right wall follow
+
+This was the same as left but we want a wall always touching the right-hand side and when we are blocked in front of us we rotate left, not right. Notice this particular path we actually reach the destination 0b in cell 20.
+
+```
+ [ [ '0', '.', '1', '.', '3' ],
+  [ '0', '.', '2', '.', '4' ],
+  [ '0', '.', '.', '.', '.' ],
+  [ '0', '1', '.', '3', '.' ],
+  [ '0', '0', '2', '4', '.' ] ]
+```
+
+3) 0b to 0a left wall follow
+Notice this produces the same result as the board as the 2) above.
+
+```
+ [ [ '0', '.', '1', '.', '3' ],
+  [ '0', '.', '2', '.', '4' ],
+  [ '0', '.', '.', '.', '.' ],
+  [ '0', '1', '.', '3', '.' ],
+  [ '0', '0', '2', '4', '.' ] ]
+```
+
+4) 0b to 0a right wall follow
+```
+ [ [ '0', '.', '1', '.', '3' ],
+  [ '.', '.', '2', '.', '4' ],
+  [ '0', '0', '0', '.', '.' ],
+  [ '0', '1', '0', '3', '.' ],
+  [ '0', '0', '2', '4', '.' ] ]
+```
+
+Now we check for duplicates and to see if any of the solutions block any of the endpoints. Numbers 2) and 3) are duplicates. Number 1) blocks the '1' in cell 2 and the '2' in cell 7. Number 4 blocks the '1' in cell 16 and the '2' in cell 22. Based on this we only propagate number 2). It is possible that more than one solution makes it to the next round.
+
+We also do this whole process for each number (so '0', '1', '2' and '3') so multiple partially solved boards make it to the next round.
+At the end of a round you if the list of boards is empty, you are either stuck or complete. To check you are complete, simply look if there are any unused cells.
+
+In the next round you repeats the same process all over again.
+
+
+
