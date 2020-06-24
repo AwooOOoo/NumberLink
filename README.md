@@ -7,14 +7,6 @@ A friend got me thinking about how to solve Number Link boards (see the game 'Fr
 
 If you want to read more about the Number link puzzle (try https://en.wikipedia.org/wiki/Numberlink) which lists it as a NP-Complete problem.
 
-### Will I adapt the algorithm to solve 100% of all puzzles?
-We will see. I have a short attention span when other shiny puzzles are nearby.
-
-I have an idea on how to complete the rest using the same algorithm. In the current version, you complete one entire start to end path before putting the board back on the list for then another path to be completed. This assumes that entire paths can be found with the wall following algorithm alone. In more complex problems however I find myself doing a partial path which then helps define another path more easily (i.e. with wall following). The question becomes, how much of a partial path is sufficient
-
-### Did you know there was a (better?) implementation already on github that also includes a puzzle generator(https://github.com/thomasahle/numberlink)?
-No, but that was the point. I wanted to see if the idea would work. 
-
 # Installation:
 
 If you don't already have Node installed you can get it here:
@@ -309,5 +301,14 @@ At the end of a round you if the list of boards is empty, you are either stuck o
 
 In the next round you repeats the same process all over again.
 
+# Q & A
+
+### Will I adapt the algorithm to solve 100% of all puzzles?
+We will see. I have a short attention span when other shiny puzzles are nearby.
+
+I have an idea on how to complete the rest using the same algorithm. In the current version, you complete one entire start to end path before putting the board back on the list for then another path to be completed. This assumes that entire paths can be found with the wall following algorithm alone. In more complex problems however I find myself doing a partial path which then helps define another path more easily (i.e. with wall following). The question becomes, how much of a partial path is sufficient
+
+### Did you know there was a (better?) implementation already on github that also includes a puzzle generator(https://github.com/thomasahle/numberlink)?
+No, but that was the point. I wanted to see if the idea would work. 
 
 
